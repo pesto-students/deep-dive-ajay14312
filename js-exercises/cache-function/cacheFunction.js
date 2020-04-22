@@ -4,7 +4,7 @@ function cacheFunction(cb) {
   }
   const cacheArguments = {};
   return (...args) => {
-    const isPropertyExist = Object.prototype.isPrototypeOf.call(cacheArguments, args);
+    const isPropertyExist = Object.prototype.hasOwnProperty.call(cacheArguments, args);
     if (!isPropertyExist) {
       cacheArguments[args] = cb(args);
     }
