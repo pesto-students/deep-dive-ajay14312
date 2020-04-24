@@ -14,9 +14,9 @@ function addBigIntegers(intString) {
     const secondOperand = str2.split('').reverse();
     const modifiedStringList = [];
     let carry = 0;
-    let sum = 0;
 
     for (const [index, item] of firstOperand.entries()) {
+      let sum = 0;
       if (index < secondOperand.length) {
         sum = parseInt(item, 10) + parseInt(secondOperand[index], 10) + carry;
       } else {
