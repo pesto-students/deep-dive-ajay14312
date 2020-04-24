@@ -1,40 +1,40 @@
 function addBigIntegers(intString) {
   const regexPattern = /\n/;
   if (!regexPattern.test(intString)) {
-    throw new Error(`${intString} should has next line`);
+    throw new Error(`${intString} should have multiple lines`);
   }
   const stringsList = intString.split(regexPattern);
-  const checkValidNumbers = stringsList.filter(item => Number.isNaN(parseInt(item, 10)));
-  if (checkValidNumbers.length > 0) {
+  const checkValidNumbers = stringsList.every(item => Number.isNaN(parseInt(item, 10)));
+  if (checkValidNumbers) {
     throw new Error(`${intString} should contain only numbers.`);
   }
 
-  function addNumericStrings(firstOperand, secondOperand) {
-    let modifiedString = '';
+  function addNumericStrings(str1, str2) {
+    const firstOperand = str1.split('').reverse();
+    const secondOperand = str2.split('').reverse();
+    const modifiedStringList = [];
     let carry = 0;
-    for (let i = 0; i < firstOperand.length; i++) {
-      if (i < secondOperand.length) {
-        const sum = parseInt(firstOperand[i], 10) + parseInt(secondOperand[i], 10) + carry;
-        carry = parseInt(sum / 10, 10);
-        modifiedString = modifiedString.concat(sum % 10);
+    let sum = 0;
+
+    for (const [index, item] of firstOperand.entries()) {
+      if (index < secondOperand.length) {
+        sum = parseInt(item, 10) + parseInt(secondOperand[index], 10) + carry;
       } else {
-        const sum = parseInt(firstOperand[i], 10) + carry;
-        carry = parseInt(sum / 10, 10);
-        modifiedString = modifiedString.concat(sum % 10);
+        sum = parseInt(item, 10) + carry;
       }
+      carry = parseInt(sum / 10, 10);
+      modifiedStringList.push(sum % 10);
     }
     if (carry) {
-      modifiedString = modifiedString.concat(carry);
+      modifiedStringList.push(carry);
     }
-    return modifiedString.split('').reverse().join('');
+    return modifiedStringList.reverse().join('');
   }
 
   function reducer(str1, str2) {
-    const firstOperand = str1.split('').reverse().join('');
-    const secondOperand = str2.split('').reverse().join('');
-    return firstOperand.length > secondOperand.length
-      ? addNumericStrings(firstOperand, secondOperand)
-      : addNumericStrings(secondOperand, firstOperand);
+    return str1.length > str2.length
+      ? addNumericStrings(str1, str2)
+      : addNumericStrings(str2, str1);
   }
 
   return stringsList.reduce(reducer);
