@@ -1,6 +1,10 @@
 import { argsString } from "./argsString";
 
 describe("argsString", () => {
+  it("should throw error", () => {
+    expect(()=>argsString([], ["Hello", "World!"])).toThrow(TypeError);
+    expect(()=>argsString("{} {}", "Hello World!")).toThrow(TypeError);
+  });
   it("argsString does this thing...", () => {
     expect(argsString("{} {}", ["Hello", "World!"])).toBe("Hello World!");
   });
