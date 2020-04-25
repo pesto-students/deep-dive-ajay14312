@@ -10,8 +10,9 @@ const argsString = (message, args) => {
   let modifiedMessage = message;
 
   for (const item of messsageList) {
-    if (item === '' && args[argsIndex]) {
-      modifiedMessage = modifiedMessage.replace('{}', args[argsIndex]);
+    const argumentsItem = args[argsIndex];
+    if (item === '' && argumentsItem) {
+      modifiedMessage = modifiedMessage.replace('{}', argumentsItem);
       argsIndex++;
     }
   }
