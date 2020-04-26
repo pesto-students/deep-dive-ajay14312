@@ -5,7 +5,7 @@ const deepCopyObject = (objToCopy) => {
   const copyObject = Array.isArray(objToCopy) ? [] : {};
   const objectOwnDescriptors = Object.getOwnPropertyDescriptors(objToCopy);
 
-  for (const key of Object.keys(objectOwnDescriptors)) {
+  for (const key of Object.getOwnPropertyNames(objToCopy)) {
     const value = objToCopy[key];
     if (typeof value === 'object') {
       copyObject[key] = deepCopyObject(value);
