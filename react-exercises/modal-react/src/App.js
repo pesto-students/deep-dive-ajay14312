@@ -62,7 +62,7 @@ function App() {
       <Modal
         isVisible={isVisible}
         modalProps={modalProps}
-        panelClass={"check"}
+        panelClass= {['class1', 'class2']}
         onModalClose={closeModal}
       >
         <div>
