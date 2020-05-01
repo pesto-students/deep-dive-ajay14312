@@ -5,14 +5,14 @@ export const SignupComponent = (props) => {
   return (
     <div className="signup-form">
       <h3 className="text-center"> Signup Form</h3>
-      <form>
-        <label for="email">Email</label>
+      <form action="dashboard">
+        <label htmlFor="email">Email</label>
         <input type="email" id="fname"  placeholder="Your email.."/>
 
-        <label for="pwd">Password</label>
+        <label htmlFor="pwd">Password</label>
         <input type="password" id="pwd"  placeholder="Your password.."/>
 
-        <label for="confirm-pwd">Confirm Password</label>
+        <label htmlFor="confirm-pwd">Confirm Password</label>
         <input type="password" id="confirm-pwd"  placeholder="Confirm password.."/>
 
         <input type="submit" value="Submit"/>
