@@ -69,6 +69,10 @@ function App() {
           <h1>Start</h1>
           <h2>close</h2>
         </div>
+        <input />
+        <input />
+        <input />
+        <input />
       </Modal>
     </div>
   );
