@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import "./Modal.css";
-import PropTypes, { object } from "prop-types";
 
 const modalContainer = document.createElement("div");
 modalContainer.id = "modal-container";
@@ -182,6 +182,7 @@ class Modal extends Component {
                   className="submit-btn"
                   type="button"
                   onClick={() => this.props.onModalConfirmation()}
+                  disabled={this.props.isSubmitDisabled}
                 >
                 {this.modifiedModalProps.submitBtnText}
                 </button>
@@ -198,7 +199,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
   ModalTitle: PropTypes.string.isRequired,
-  modalProps: PropTypes.oneOf({
+  modalProps: PropTypes.shape({
     align: PropTypes.string,
     esc: PropTypes.bool,
     overlayClickClose: PropTypes.bool,
@@ -211,9 +212,11 @@ Modal.propTypes = {
   isVisible: PropTypes.bool.isRequired,
   panelClass: PropTypes.array,
   onModalConfirmation: PropTypes.func,
+  isSubmitDisabled: PropTypes.bool.isRequired
 };
 
 Modal.defaultProps = {
+  isSubmitDisabled: false,
   modalProps: {
     align: "center",
     esc: true,
