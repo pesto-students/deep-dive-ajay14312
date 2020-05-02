@@ -158,6 +158,7 @@ class Modal extends Component {
             ${alignModal === "left" ? "modal-content-left" : ""}
             ${alignModal === "right" ? "modal-content-right" : ""}
             ${alignModal === "center" ? "modal-content-center" : ""}
+            ${!this.modifiedModalProps.footerInclude? "justify-content-start": ''}
             ${customClassNames}`}
             ref={(node) => (this.modalContentNode = node)}
             style={{ width: modalWidth ? modalWidth : "" }}
