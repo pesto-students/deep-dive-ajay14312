@@ -4,7 +4,7 @@ import { SignupComponent } from "../signup/signup.component";
 import { LoginComponent } from "../login/login.component";
 import { Header } from "../header/header.componet";
 import { DummyText } from "../dumy-text/dumy-text.component";
-import "./home.style.css";
+import "./home.css";
 
 export const Home = (props) => {
   return (
