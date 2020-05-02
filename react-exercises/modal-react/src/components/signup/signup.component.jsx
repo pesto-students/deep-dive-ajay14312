@@ -1,5 +1,5 @@
 import React from "react";
-import "./signup.style.css";
+import "./signup.css";
 import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
@@ -21,12 +21,12 @@ export const SignupComponent = (props) => {
           Enter: false,
           closeBtnText: "Cancel",
           submitBtnText: "Approve",
+          ModalTitle: "Signup",
         }}
         onModalConfirmation={handleSubmit}
         isSubmitDisabled={true}
       >
         <div className="signup-form">
-          <h3 className="text-center"> Signup Form</h3>
           <form>
             <label htmlFor="email">Email</label>
             <input type="email" id="fname" placeholder="Your email.." />

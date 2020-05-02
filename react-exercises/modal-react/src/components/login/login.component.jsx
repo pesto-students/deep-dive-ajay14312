@@ -1,5 +1,5 @@
 import React from "react";
-import "./login.style.css";
+import "./login.css";
 import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
@@ -27,7 +27,6 @@ export const LoginComponent = (props) => {
         onModalConfirmation={handleSubmit}
       >
         <div className="login-form">
-          <h3 className="text-center"> Login Form</h3>
           <form>
             <label htmlFor="email">Email</label>
             <input type="email" id="fname" placeholder="Your email.." />
