@@ -2,19 +2,84 @@ import React from "react";
 
 export const DummyText = (props) => {
   return (
-    <div>
-      <div>
-        react-modal Accessible modal dialog component for React.JS We maintain
-        that accessibility is a key component of any modern web application. As
-        such, we have created this modal in such a way that it fulfills the
-        accessibility requirements of the modern web. We seek to keep the focus
-        on accessibility while providing a functional, capable modal component
-        for general use. Installation To install the stable version you can use
-        npm or yarn: $ npm install react-modal $ yarn add react-modal General
-        Usage The only required prop for the modal object is isOpen, which
-        indicates whether the modal should be displayed. The following is an
-        example of using react-modal specifying all the possible props and
-        options:
+    <div style={{ lineHeight: "30px" }}>
+      <div style={{ padding: "30px" }}>
+        Developed a simple modal component to support accessibility. Modal
+        component accepts below mentioned props.
+        <ul style={{ listStyle: "none" }}>
+          <li>
+            <b>onModalClose: </b>
+            <span>
+              It accepts a function. Passed function is responsible for close
+              the modal.
+            </span>
+          </li>
+          <li>
+            <b>modalProps: </b>
+            <span>
+              It accepts a Object. Passed object should contain below
+              properties.
+              <pre
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  border: "1px solid black",
+                  backgroundColor: "#80808038",
+                  width: "45%",
+                  padding: "20px",
+                }}
+              >
+                <code>align: string</code>
+                <code>esc: boolean</code>
+                <code>overlayClickClose: boolean</code>
+                <code>width:string</code>
+                <code>footerInclude: boolean</code>
+                <code>closeBtnText: string</code>
+                <code>submitBtnText: string</code>
+              </pre>
+              <p>
+                align: changes the modal placement and it accepts three
+                properties(left, right and center). By default it is set to
+                center
+              </p>
+              <p>esc: closes on click of Esc button. By default set to true</p>
+              <p>
+                overlayClickClose: closes when user interacts with backdrop. By
+                default set to true
+              </p>
+              <p>width: user can pass width as per his requirement</p>
+              <p>
+                footerInclude: user can use in built modal buttons close and
+                submit. By default it is set to true.
+              </p>
+              <p>
+                closeBtnText: It accepts a string. user can pass close button
+                text.
+              </p>
+              <p>
+                submitBtnText: It accepts an array. user can pass submit button
+                text.
+              </p>
+            </span>
+          </li>
+          <li>
+            <b>ModalTitle: </b>
+            <span>It accepts a string. User can set modal title</span>
+          </li>
+          <li>
+            <b>onModalConfirmation: </b>
+            <span>
+              It accepts a function. Passed function is responsible for success
+              call activity
+            </span>
+          </li>
+          <li>
+            <b>panelClass: </b>
+            <span>
+              It accepts an array. user can pass multiple css classes.
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   );
