@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import "./Modal.css";
+import PropTypes, { object } from "prop-types";
 
-const overlay = document.createElement("div");
-overlay.id = "overlay-container";
-
+const modalContainer = document.createElement("div");
+modalContainer.id = "modal-container";
 const tabbleList = [
   "a[href]",
   "area[href]",
@@ -15,7 +15,7 @@ const tabbleList = [
   "select:not([disabled])",
   "iframe",
   "object",
-  "embed"
+  "embed",
 ];
 
 class Modal extends Component {
@@ -27,52 +27,17 @@ class Modal extends Component {
     };
 
     this.element = document.createElement("div");
-    this.node = "";
-    this.activeElement = '';
+    this.modalContentNode = "";
+    this.activeElement = "";
     if (this.props.isVisible) {
-      document.querySelector("html").style.overflow = 'hidden';
+      document.querySelector("html").style.overflow = "hidden";
     }
+
+    this.modifiedModalProps = {
+      ...Modal.defaultProps.modalProps,
+      ...this.props.modalProps,
+    };
   }
-
-  componentWillUnmount = () => {
-    document.removeEventListener("mousedown", this.handleClick, false);
-    document.removeEventListener("keydown", this.captureKey, false);
-    overlay.removeChild(this.element);
-    document.querySelector("html").style.overflow = 'auto';
-  };
-
-  handleClick = (e) => {
-    if (this.node.contains(e.target)) {
-      return;
-    }
-    // if ( document.activeElement.toString() === "[object HTMLBodyElement]" && e.keyCode === 27) {
-    //   this.props.onModalClose();
-    //   this.activeElement.focus();
-    // }
-    this.closeOverlay();
-  };
-
-  componentDidMount = () => {
-    this.activeElement = document.activeElement;
-    document.addEventListener("mousedown", this.handleClick, false);
-    document.addEventListener("keydown", this.captureKey, false);
-    document.querySelector("body").appendChild(overlay);
-    overlay.appendChild(this.element);
-
-    this.setState(() => {
-      const arrList = Array.prototype.slice.call(document.getElementById("childrenDiv").querySelectorAll(tabbleList))
-      return {
-        list: arrList
-      };
-    });
-  };
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.isVisible === this.props.isVisible &&
-      this.props.isVisible === true) {
-        this.focusFirstElement();
-    }
-  };
 
   focusFirstElement = () => {
     if (this.state.list[1]) {
@@ -80,7 +45,53 @@ class Modal extends Component {
     } else {
       this.state.list[0].focus();
     }
-  }
+  };
+
+  componentDidMount = () => {
+    if (this.props.isVisible) {
+      this.activeElement = document.activeElement;
+      document.addEventListener("mousedown", this.handleClick, false);
+      document.addEventListener("keydown", this.captureKey, false);
+      document.querySelector("body").appendChild(modalContainer);
+      modalContainer.appendChild(this.element);
+
+      this.setState(() => {
+        if (this.props.isVisible) {
+          const arrList = Array.prototype.slice.call(
+            document.getElementById("childrenDiv").querySelectorAll(tabbleList)
+          );
+          return {
+            list: arrList,
+          };
+        }
+      });
+    }
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (
+      prevProps.isVisible === this.props.isVisible &&
+      this.props.isVisible === true
+    ) {
+      this.focusFirstElement();
+    }
+  };
+
+  componentWillUnmount = () => {
+    document.removeEventListener("mousedown", this.handleClick, false);
+    document.removeEventListener("keydown", this.captureKey, false);
+    modalContainer.removeChild(this.element);
+    document.querySelector("html").style.overflow = "auto";
+  };
+
+  handleClick = (e) => {
+    if (this.modifiedModalProps.overlayClickClose) {
+      if (this.modalContentNode.contains(e.target)) {
+        return;
+      }
+      this.closeOverlay();
+    }
+  };
 
   captureKey = (event) => {
     if (event.keyCode === 9) {
@@ -93,55 +104,125 @@ class Modal extends Component {
           this.state.list[this.state.list.length - 1].focus();
         }
       } else {
-        if (document.activeElement === this.state.list[this.state.list.length - 1]) {
+        if (
+          document.activeElement === this.state.list[this.state.list.length - 1]
+        ) {
           event.preventDefault();
           this.state.list[0].focus();
         }
       }
-    } else if (event.keyCode === 27) {
+    } else if (event.keyCode === 27 && this.modifiedModalProps.esc) {
       this.closeOverlay();
+    } else if (
+      event.keyCode === 13 &&
+      this.props.onModalConfirmation &&
+      this.Enter
+    ) {
+      this.props.onModalConfirmation();
     }
   };
 
   closeOverlay = () => {
     this.props.onModalClose();
     this.activeElement.focus();
-  }
+  };
 
   render() {
-    const showHideClassName = this.props.isVisible ? "show" : "display-none";
-    const alignModal = this.props.modalProps && this.props.modalProps.align? this.props.modalProps.align : 'center';
-
-    if (!showHideClassName) {
+    if (!this.props.isVisible) {
       return null;
-    }
+    } else {
+      const showHideClassName = this.props.isVisible ? "show" : "display-none";
+      const alignModal = this.modifiedModalProps.align;
+      const modalWidth = this.modifiedModalProps.width;
 
-    const customClassNames = this.props.panelClass?this.props.panelClass.join(' '):'';
+      if (!showHideClassName) {
+        return null;
+      }
 
-    const overlayNode = (
-      <div
-        className={`modal ${showHideClassName}`}
-        onKeyDown={this.captureKey}
-        id="childrenDiv"
-        role="dialog">
-        <div className={`modal-content ${alignModal === 'left'?'modal-content-left':''} ${alignModal === 'right'?'modal-content-right':'' } ${customClassNames} ${alignModal === 'center'?'modal-content-center':''}`} ref={(node) => (this.node = node)}>
-          <div className="modal-header">
-            <button className="close" onClick={this.closeOverlay}>&times;</button>
-            <h2>Modal Header</h2>
-          </div>
-          <div className="modal-body">
-            {this.props.children}
-          </div>
-          <div className="modal-footer">
-            
-            <h3>Modal Footer</h3>
+      const customClassNames = this.props.panelClass
+        ? this.props.panelClass.join(" ")
+        : "";
+
+      const overlayNode = this.props.isVisible ? (
+        <div
+          className={`modal ${showHideClassName}`}
+          onKeyDown={this.captureKey}
+          id="childrenDiv"
+          role="dialog"
+          aria-labelledby="modal-title"
+          aria-describedby="modal_desc"
+          aria-modal="true"
+        >
+          <div
+            className={`modal-content
+            ${alignModal === "left" ? "modal-content-left" : ""}
+            ${alignModal === "right" ? "modal-content-right" : ""}
+            ${alignModal === "center" ? "modal-content-center" : ""}
+            ${customClassNames}`}
+            ref={(node) => (this.modalContentNode = node)}
+            style={{ width: modalWidth ? modalWidth : "" }}
+          >
+            <div className="modal-header">
+              <button className="close" onClick={this.closeOverlay}>
+                &times;
+              </button>
+              <h2 id="modal-title">{this.props.ModalTitle}</h2>
+            </div>
+            <div className="modal-body" id="modal_desc">
+              {this.props.children}
+            </div>
+            {this.modifiedModalProps.footerInclude ? (
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="close-btn"
+                  onClick={this.closeOverlay}
+                >
+                  close
+                </button>
+                <button
+                  className="submit-btn"
+                  type="button"
+                  onClick={() => this.props.onModalConfirmation()}
+                >
+                  submit
+                </button>
+              </div>
+            ) : null}
           </div>
         </div>
-      </div>
-    );
+      ) : null;
 
-    return ReactDOM.createPortal(overlayNode, this.element);
+      return ReactDOM.createPortal(overlayNode, this.element);
+    }
   }
 }
+
+Modal.propTypes = {
+  ModalTitle: PropTypes.string.isRequired,
+  modalProps: PropTypes.oneOf({
+    align: PropTypes.string,
+    esc: PropTypes.bool,
+    overlayClickClose: PropTypes.bool,
+    width: PropTypes.string,
+    footerInclude: PropTypes.bool,
+  }),
+  onModalClose: PropTypes.func.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  panelClass: PropTypes.array,
+  onModalConfirmation: PropTypes.func,
+};
+
+Modal.defaultProps = {
+  modalProps: {
+    align: "center",
+    esc: true,
+    overlayClickClose: false,
+    width: "",
+    footerInclude: true,
+    Enter: true,
+  },
+  ModalTitle: "Modal Header",
+};
 
 export default Modal;
