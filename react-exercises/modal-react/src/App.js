@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Dashboard } from './components/dashboard/dashboard.component';
+import Dashboard from './components/dashboard/dashboard.component';
 import { Home } from './components/home/home.component';
 
 

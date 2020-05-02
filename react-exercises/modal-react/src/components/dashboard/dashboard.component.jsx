@@ -1,9 +1,19 @@
-import React from 'react';
+import React from "react";
+import { useHistory } from "react-router-dom";
 
-export const Dashboard = (props) => {
+const Dashboard = (props) => {
+  const history = useHistory();
+  const logout = () => {
+    history.push("/");
+  };
   return (
-    <div>
-      <h2>Dashboard</h2>
+    <div className="header">
+      <button className="btn home">Modal</button>
+      <button className="btn" onClick={logout}>
+        Logout
+      </button>
     </div>
-  )
-}
+  );
+};
+
+export default Dashboard;

@@ -3,7 +3,7 @@ import "./signup.css";
 import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
-export const SignupComponent = (props) => {
+const SignupComponent = (props) => {
   const history = useHistory();
   const handleSubmit = () => {
     history.push("/dashboard");
@@ -48,3 +48,5 @@ export const SignupComponent = (props) => {
     </React.Fragment>
   );
 };
+
+export default SignupComponent;

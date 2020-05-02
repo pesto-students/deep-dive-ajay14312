@@ -1,7 +1,7 @@
 import React from "react";
-import { SignupComponent } from "../signup/signup.component";
-import { LoginComponent } from "../login/login.component";
-import { Header } from "../header/header.componet";
+import SignupComponent from "../signup/signup.component";
+import LoginComponent from "../login/login.component";
+import Header from "../header/header.componet";
 import { DummyText } from "../dumy-text/dumy-text.component";
 import "./home.css";
 

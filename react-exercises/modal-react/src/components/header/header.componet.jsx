@@ -1,7 +1,7 @@
 import React from "react";
 import "./header.css";
 
-export const Header = (props) => {
+const Header = (props) => {
   return (
     <div className="header">
       <button className="btn home">Modal</button>
@@ -14,3 +14,5 @@ export const Header = (props) => {
     </div>
   );
 };
+
+export default Header;

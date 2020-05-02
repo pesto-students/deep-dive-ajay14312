@@ -3,7 +3,7 @@ import "./login.css";
 import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
-export const LoginComponent = (props) => {
+const LoginComponent = (props) => {
   const history = useHistory();
   const handleSubmit = () => {
     history.push("/dashboard");
@@ -41,3 +41,5 @@ export const LoginComponent = (props) => {
     </React.Fragment>
   );
 };
+
+export default LoginComponent;
