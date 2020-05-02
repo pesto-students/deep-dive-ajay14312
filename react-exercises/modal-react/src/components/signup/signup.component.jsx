@@ -15,7 +15,13 @@ export const SignupComponent = (props) => {
         isVisible={props.isSignupVisible}
         panelClass={["class1", "class2"]}
         onModalClose={props.onModalClose}
-        modalProps={{ width: "80%", overlayClickClose: true, Enter: false }}
+        modalProps={{
+          width: "80%",
+          overlayClickClose: true,
+          Enter: false,
+          closeBtnText: "Cancel",
+          submitBtnText: "Approve",
+        }}
         onModalConfirmation={handleSubmit}
       >
         <div className="signup-form">
