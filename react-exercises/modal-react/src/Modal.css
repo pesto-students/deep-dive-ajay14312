@@ -57,7 +57,7 @@
 }
 
 .modal-footer .close-btn {
-  width: 20%;
+  min-width: 20%;
   background-color: #ff0000;
   color: white;
   padding: 14px 20px;
@@ -70,7 +70,7 @@
 }
 
 .modal-footer .submit-btn {
-  width: 20%;
+  min-width: 20%;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -125,7 +125,7 @@
 
   .modal-content-left,
   .modal-content-right {
-    width: 100%;
+    width: 100% !important;
   }
 
   .modal-content-center {
@@ -133,7 +133,7 @@
     left: 0;
     transform: translate(0, 0);
     height: 100%;
-    width: 100%;
+    width: 100% !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

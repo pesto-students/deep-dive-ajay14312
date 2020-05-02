@@ -177,15 +177,13 @@ class Modal extends Component {
                   type="button"
                   className="close-btn"
                   onClick={this.closeOverlay}
-                >
-                  close
-                </button>
+                >{this.modifiedModalProps.closeBtnText}</button>
                 <button
                   className="submit-btn"
                   type="button"
                   onClick={() => this.props.onModalConfirmation()}
                 >
-                  submit
+                {this.modifiedModalProps.submitBtnText}
                 </button>
               </div>
             ) : null}
@@ -206,6 +204,8 @@ Modal.propTypes = {
     overlayClickClose: PropTypes.bool,
     width: PropTypes.string,
     footerInclude: PropTypes.bool,
+    closeBtnText: PropTypes.string,
+    submitBtnText: PropTypes.string
   }),
   onModalClose: PropTypes.func.isRequired,
   isVisible: PropTypes.bool.isRequired,
@@ -221,6 +221,8 @@ Modal.defaultProps = {
     width: "",
     footerInclude: true,
     Enter: true,
+    closeBtnText: 'Close',
+    submitBtnText: 'Submit'
   },
   ModalTitle: "Modal Header",
 };
