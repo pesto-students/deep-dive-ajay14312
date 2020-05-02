@@ -23,6 +23,7 @@ export const SignupComponent = (props) => {
           submitBtnText: "Approve",
         }}
         onModalConfirmation={handleSubmit}
+        isSubmitDisabled={true}
       >
         <div className="signup-form">
           <h3 className="text-center"> Signup Form</h3>
