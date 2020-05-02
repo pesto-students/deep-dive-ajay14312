@@ -3,7 +3,7 @@ import React from "react";
 export const DummyText = (props) => {
   return (
     <div style={{ lineHeight: "30px" }}>
-      <div style={{ padding: "30px" }}>
+      <div style={{ padding: "50px" }}>
         Developed a simple modal component to support accessibility. Modal
         component accepts below mentioned props.
         <ul style={{ listStyle: "none" }}>
