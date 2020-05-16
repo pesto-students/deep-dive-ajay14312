@@ -1,6 +1,5 @@
 {
   "name": "exercise-template",
-  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,6 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
     "pesto-exercise-starter": "^1.0.1"
   }
 }
