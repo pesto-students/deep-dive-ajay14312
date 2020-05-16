@@ -2,9 +2,10 @@ import http from "http";
 import url from "url";
 import bodyParser from "./body-parser.mjs";
 import routeCheck from "./route-check.mjs";
-
-const routes = [];
+import middleware from "./middleware.mjs";
 class Server {
+  routes = [];
+  middlewareList = [];
   constructor() {
     this.server = http.createServer();
     this.server.on("request", this.parser);
@@ -16,9 +17,10 @@ class Server {
   }
 
   parser = async (request, response) => {
+    await middleware(request, response, this.middlewareList);
     const parsedURL = url.parse(request.url, true);
     let isRouteExist = false;
-    for (let item of routes) {
+    for (let item of this.routes) {
       const routeCheckData = routeCheck(parsedURL.pathname, item);
       if (routeCheckData.isCorrectRoute && request.method === item.method) {
         isRouteExist = true;
@@ -30,7 +32,7 @@ class Server {
             item.cb(request, response);
           });
         } else {
-          await item.cb(request, response);
+          item.cb(request, response);
         }
       }
     }
@@ -48,7 +50,7 @@ class Server {
       method: "GET",
       cb,
     };
-    routes.push(routeObj);
+    this.routes.push(routeObj);
   };
 
   post = (route, cb) => {
@@ -57,7 +59,7 @@ class Server {
       method: "POST",
       cb,
     };
-    routes.push(routeObj);
+    this.routes.push(routeObj);
   };
 
   put = (route, cb) => {
@@ -66,7 +68,7 @@ class Server {
       method: "PUT",
       callback: cb,
     };
-    routes.push(routeObj);
+    this.routes.push(routeObj);
   };
 
   delete = (route, cb) => {
@@ -75,7 +77,11 @@ class Server {
       method: "DELETE",
       callback: cb,
     };
-    routes.push(routeObj);
+    this.routes.push(routeObj);
+  };
+
+  addMiddleware = (middlewares) => {
+    this.middlewareList = [...middlewares];
   };
 }
 
