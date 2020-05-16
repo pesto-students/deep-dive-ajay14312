@@ -1,13 +1,10 @@
-import fetch from "isomorphic-fetch";
+const fetch = require("isomorphic-fetch");
 
-const getData = async (req, res, next) => {
+const postData = async (req, res, next) => {
   try {
     const payload = await fetch("https://reqres.in/api/users?page=2");
     const json = await payload.json();
-    res.writeHead(200, {
-      "Content-Type": "text/json",
-      "Content-Length": Buffer.byteLength(JSON.stringify(json)),
-    });
+    res.writeHead(200, { "Content-Type": "text/json" });
     res.write(
       JSON.stringify({
         message: "fetched data successfully",
@@ -26,4 +23,4 @@ const getData = async (req, res, next) => {
   }
 };
 
-export default getData;
+module.exports = postData;

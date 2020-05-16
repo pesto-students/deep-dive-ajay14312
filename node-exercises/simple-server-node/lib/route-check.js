@@ -1,4 +1,12 @@
 const routeCheck = (path, item) => {
+  if (typeof path !== "string") {
+    throw new TypeError(`Expected a string, got ${typeof path}`);
+  } else if (typeof item !== "object") {
+    throw new TypeError(`Expected an Object, got ${typeof path}`);
+  } else if (typeof item.route !== "string") {
+    throw new TypeError(`Expected a string, got ${typeof path}`);
+  }
+
   const splittedPath = path.split("/");
   splittedPath.splice(0, 1);
   const pathFirstRoute = splittedPath.splice(0, 1);
@@ -20,4 +28,4 @@ const routeCheck = (path, item) => {
   }
 };
 
-export default routeCheck;
+module.exports = routeCheck;

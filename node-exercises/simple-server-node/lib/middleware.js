@@ -9,4 +9,4 @@ const middleware = async (request, response, list) => {
   }
 };
 
-export default middleware;
+module.exports = middleware;

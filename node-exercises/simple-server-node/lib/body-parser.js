@@ -8,4 +8,4 @@ const bodyParser = async (request, cb) => {
   });
 };
 
-export default bodyParser;
+module.exports = bodyParser;

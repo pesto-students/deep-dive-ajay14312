@@ -1,6 +1,6 @@
-import Server from "./lib/server.mjs";
-import getData from "./check/get-data.mjs";
-import postData from "./check/post-data.mjs";
+const Server = require("./lib/server.js");
+const getData = require("./check/get-data.js");
+const postData = require("./check/post-data.js");
 
 const PORT = process.env.PORT || 4000;
 
@@ -10,6 +10,7 @@ server.listen(PORT);
 server.addMiddleware([
   (req, res) => {
     req.requestTime = new Date();
+    req.developer = "Ajay";
   },
 ]);
 server.get("/check", getData);
