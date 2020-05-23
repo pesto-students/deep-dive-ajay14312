@@ -18,7 +18,7 @@ const Line = ({ data, lineGap, linePlotProps = {} }) => {
     const maxYAxisValue = getMaxYAxisValue(data);
     const lineGapValue = lineGap || 10;
 
-    const getYPixel = (value, ctx) => {
+    const addYAxisSize = (value, ctx) => {
         return (
             ctx.canvas.height -
             ((ctx.canvas.height - yAxisLineSize) / maxYAxisValue) * value -
@@ -40,7 +40,7 @@ const Line = ({ data, lineGap, linePlotProps = {} }) => {
 
     const addYAxisText = (ctx) => {
         for (let i = 0; i < maxYAxisValue; i += 10) {
-            ctx.fillText(i, xAxisLineSize - 20, getYPixel(i, ctx));
+            ctx.fillText(i, xAxisLineSize - 20, addYAxisSize(i, ctx));
         }
     };
 
@@ -48,9 +48,9 @@ const Line = ({ data, lineGap, linePlotProps = {} }) => {
         let xPlot = lineGapValue;
         ctx.beginPath();
         ctx.strokeStyle = linePlotProps.lineColor || "red";
-        ctx.moveTo(xPlot, getYPixel(data[0].Y, ctx));
+        ctx.moveTo(xPlot, addYAxisSize(data[0].Y, ctx));
         for (let item of data) {
-            ctx.lineTo(xPlot, getYPixel(item.Y, ctx));
+            ctx.lineTo(xPlot, addYAxisSize(item.Y, ctx));
             xPlot += lineGapValue;
         }
         ctx.stroke();
@@ -63,7 +63,7 @@ const Line = ({ data, lineGap, linePlotProps = {} }) => {
             ctx.beginPath();
             ctx.arc(
                 xPlot,
-                getYPixel(item.Y, ctx),
+                addYAxisSize(item.Y, ctx),
                 8,
                 0,
                 Math.PI * 2,

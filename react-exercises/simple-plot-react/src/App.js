@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Bar from "./components/Bar/Bar";
-import Line from "./components/Line/Line";
+import LinePlot from "./components/Line/Line";
 
 function App() {
   const data = [
@@ -22,8 +22,8 @@ function App() {
   return (
     <div className="App">
       <h1>Simple Plot React</h1>
-      <h2>Population in crores by Country</h2>
-      <Line data={data} lineGap={100} linePlotProps={linePlotProps} />
+      <h2>Country wise population in crores</h2>
+      <LinePlot data={data} lineGap={100} linePlotProps={linePlotProps} />
       <Bar />
     </div>
   );
