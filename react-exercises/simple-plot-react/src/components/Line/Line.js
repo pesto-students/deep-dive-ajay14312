@@ -40,7 +40,7 @@ const Line = ({ data, lineGap }) => {
 
     const addYAxisText = (ctx) => {
         for (let i = 0; i < maxYAxisValue; i += 10) {
-            ctx.fillText(i, xAxisLineSize - 10, getYPixel(i, ctx));
+            ctx.fillText(i, xAxisLineSize - 20, getYPixel(i, ctx));
         }
     };
 
@@ -84,6 +84,9 @@ const Line = ({ data, lineGap }) => {
 
     const drawLinePlot = () => {
         const ctx = linePlot.current.getContext("2d");
+        if (Object.prototype.toString.call(ctx) !== '[object CanvasRenderingContext2D]') {
+            throw new TypeError(`Expected a canvas element, got ${typeof ctx}`);
+        }
         //drawGrids(ctx);
         drawAxis(ctx, xAxisLineSize, yAxisLineSize);
         updateCanvas(ctx);
