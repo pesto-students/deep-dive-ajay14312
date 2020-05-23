@@ -1,8 +1,8 @@
-import { getMaxYAxisValue, drawAxis } from '../utils/Line.utils';
+import { Line } from '../components/Line/Line';
 
-describe('Line utils', () => {
-    describe('getMaxYAxisValue', () => {
-        it('should throw error', () => {
+describe('Line', () => {
+    describe('getYPixel', () => {
+        it('should give correct value', () => {
             expect(() => getMaxYAxisValue({})).toThrow(TypeError);
         })
         it('should return max value', () => {

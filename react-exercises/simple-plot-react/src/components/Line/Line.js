@@ -5,7 +5,7 @@ import {
     drawGrids
 } from "../../utils/Line.utils";
 
-const Line = ({ data, lineGap }) => {
+const Line = ({ data, lineGap, linePlotProps = {} }) => {
     if (!Array.isArray(data)) {
         throw new TypeError(`Expected an array, got ${typeof data}`);
     } else if (lineGap && typeof lineGap !== 'number') {
@@ -47,7 +47,7 @@ const Line = ({ data, lineGap }) => {
     const drawLine = (ctx) => {
         let xPlot = lineGapValue;
         ctx.beginPath();
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = linePlotProps.lineColor || "red";
         ctx.moveTo(xPlot, getYPixel(data[0].Y, ctx));
         for (let item of data) {
             ctx.lineTo(xPlot, getYPixel(item.Y, ctx));
@@ -58,7 +58,7 @@ const Line = ({ data, lineGap }) => {
 
     const drawDots = (ctx) => {
         let xPlot = lineGapValue;
-        ctx.fillStyle = "yellow";
+        ctx.fillStyle = linePlotProps.dotsColor || "black";
         for (let item of data) {
             ctx.beginPath();
             ctx.arc(
@@ -98,7 +98,7 @@ const Line = ({ data, lineGap }) => {
 
     return (
         <React.Fragment>
-            <canvas ref={linePlot} width={1000} height={600}></canvas>
+            <canvas ref={linePlot} width={linePlotProps.width} height={linePlotProps.height}></canvas>
         </React.Fragment>
     );
 };
