@@ -12,6 +12,8 @@ function App() {
     { X: 'Korea', Y: 5.16 },
     { X: 'USA', Y: 32.82 },
     { X: 'UK', Y: 6.66 },
+    { X: 'Germany', Y: 8.3 },
+    { X: 'Israel', Y: 0.88 }
   ];
   const linePlotProps = {
     width: 1000,
