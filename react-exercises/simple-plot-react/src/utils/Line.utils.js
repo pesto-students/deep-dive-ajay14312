@@ -31,7 +31,7 @@ const drawAxis = (ctx, xAxisLineSize, yAxisLineSize) => {
     ctx.stroke();
 };
 
-const drawGrids = (ctx) => {
+const drawGrid = (ctx) => {
     if (Object.prototype.toString.call(ctx) !== '[object CanvasRenderingContext2D]') {
         throw new TypeError(`Expected a canvas element, got ${typeof ctx}`);
     }
@@ -54,4 +54,4 @@ const drawGrids = (ctx) => {
     ctx.stroke();
 };
 
-export { getMaxYAxisValue, drawAxis, drawGrids };
+export { getMaxYAxisValue, drawAxis, drawGrid };

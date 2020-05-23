@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import {
     getMaxYAxisValue,
     drawAxis,
-    drawGrids
+    drawGrid
 } from "../../utils/Line.utils";
 
 const Line = ({ data, lineGap, linePlotProps = {} }) => {
@@ -87,7 +87,7 @@ const Line = ({ data, lineGap, linePlotProps = {} }) => {
         if (Object.prototype.toString.call(ctx) !== '[object CanvasRenderingContext2D]') {
             throw new TypeError(`Expected a canvas element, got ${typeof ctx}`);
         }
-        //drawGrids(ctx);
+        //drawGrid(ctx);
         drawAxis(ctx, xAxisLineSize, yAxisLineSize);
         updateCanvas(ctx);
     };
